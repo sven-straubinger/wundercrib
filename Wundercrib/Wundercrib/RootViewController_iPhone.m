@@ -6,13 +6,17 @@
 //  Copyright (c) 2013 Zeitfenster GbR. All rights reserved.
 //
 
-#import "RootViewController_iPhoneViewController.h"
+#import "RootViewController_iPhone.h"
+#import "ItemCell.h"
 
-@interface RootViewController_iPhoneViewController ()
+@interface RootViewController_iPhone ()
 
 @end
 
-@implementation RootViewController_iPhoneViewController
+@implementation RootViewController_iPhone
+
+// Define cell identifier as constant
+NSString *const kCellIdentifier = @"kCellIdentifier";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,6 +30,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Register item cell
+    [self.tableView registerClass:[ItemCell class] forCellReuseIdentifier:kCellIdentifier];
+    
+    // Hide UINavigationController by default
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    // Remove the default seperators
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,29 +57,73 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    // The app contains two sections, one for open tasks and one for already completed tasks
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    // Get cell from queue or create new cell (available since iOS 6)
+    ItemCell *cell = (ItemCell*)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+ 
+    // Configure the cell...
+    [cell.textLabel setText:@"Hello"];
+    
+    // Setup pan gesture recognizer
+    if(cell.panGestureRecognizer == nil)
+    {
+#warning Bissi strange
+        // Add to cell's UIPanGestureRecognizer
+        cell.panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self
+                                                                           action:@selector(pan:)];
+        [cell addGestureRecognizer:cell.panGestureRecognizer];
     }
     
-    // Configure the cell...
+    // The first cell is special since it is responsible for task creation
+    // Move it more to the border
+    if([indexPath section] == 0 && [indexPath row] == 0)
+    {
+        [cell.textLabel setText:@"+"];
+        
+        // Thus we disable the scroll view touches when working with the first cell
+        [cell.panGestureRecognizer setDelegate:nil];
+    }
+    else
+    {
+        //    [cell.panGestureRecognizer requireGestureRecognizerToFail:self.tableView.panGestureRecognizer];
+        [cell.panGestureRecognizer setDelegate:self];
+    }
     
     return cell;
+}
+
+#warning TESt
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    // Define first index path in first section
+    NSIndexPath *firstRowFirstSection = [NSIndexPath indexPathForRow:0
+                                                           inSection:0];
+    
+    // Move first cell out of screen
+    ItemCell *itemCell = (ItemCell*)[self.tableView cellForRowAtIndexPath:firstRowFirstSection];
+    CGRect itemCellFrame = itemCell.frame;
+    itemCellFrame.origin.x = -50;
+    itemCell.frame = itemCellFrame;
 }
 
 /*
@@ -119,6 +176,63 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+#pragma mark - Private Methods
+
+- (void)pan:(UIPanGestureRecognizer*)recognizer
+{
+    CGPoint translation = [recognizer translationInView:self.tableView];
+    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
+                                         recognizer.view.center.y);
+    [recognizer setTranslation:CGPointMake(0, 0) inView:self.tableView];
+    
+    CGFloat diff = fabsf(self.tableView.center.x - recognizer.view.center.x);
+    if(diff > 10)
+    {
+        // Disallow simultanous recognizer
+        [recognizer setDelegate:nil];
+    }
+    
+    // Animate to final positions when pan gesture ended 
+    if(recognizer.state == UIGestureRecognizerStateEnded ||
+       recognizer.state == UIGestureRecognizerStateCancelled ||
+       recognizer.state == UIGestureRecognizerStateFailed)
+    {
+        // Define threshold
+        CGFloat threshold = self.tableView.frame.size.width / 2.7;
+        
+        if(recognizer.view.center.x > (self.tableView.center.x + threshold))
+        {
+            [UIView animateWithDuration:0.3
+                                  delay:0.0
+                                options:UIViewAnimationOptionCurveEaseOut
+                             animations:^{
+                                 // Get frame
+                                 CGRect frame = recognizer.view.frame;
+                                 // Set new origin, thus the view will be animated outside the window
+                                 frame.origin.x = self.tableView.frame.size.width;
+                                 recognizer.view.frame = frame;
+                             } completion:^(BOOL finished) {
+                                 // Do nothing yet
+                             }];
+        }
+        else
+        {
+            [UIView animateWithDuration:0.3
+                                  delay:0.0
+                                options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 // Get current center
+                                 CGPoint center = recognizer.view.center;
+                                 // Set new center
+                                 center.x = self.tableView.center.x;
+                                 recognizer.view.center = center;
+                             } completion:^(BOOL finished) {
+                                 // Do nothing yet
+                             }];
+        }
+    }
 }
 
 @end

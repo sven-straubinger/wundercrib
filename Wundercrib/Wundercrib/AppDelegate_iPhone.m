@@ -13,11 +13,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Call super
     [super application:application didFinishLaunchingWithOptions:launchOptions];
     
-    RootViewController_iPhone *rootVC = [[RootViewController_iPhone alloc]init];
-
-    [self.window setRootViewController:rootVC];
+    // The root view controller is a subclass of UITableViewController
+    // Initialize root view controller and wrap it in UINavigationController
+    // Thus, we are more flexible to push view controller on top (if necessary)
+    RootViewController_iPhone *rootVC = [[RootViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
+    UINavigationController *navigationController = [[UINavigationController alloc]
+                                                    initWithRootViewController:rootVC];
+    
+    // Set the root view controller
+    [self.window setRootViewController:navigationController];
     [self.window makeKeyAndVisible];
     return YES;
 }

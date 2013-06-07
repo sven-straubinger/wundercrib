@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController_iPhoneViewController : UITableViewController
+@interface RootViewController_iPhone : UITableViewController <UIGestureRecognizerDelegate>
 
 @end

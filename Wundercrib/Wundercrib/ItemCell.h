@@ -10,4 +10,7 @@
 
 @interface ItemCell : UITableViewCell
 
+@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+
 @end

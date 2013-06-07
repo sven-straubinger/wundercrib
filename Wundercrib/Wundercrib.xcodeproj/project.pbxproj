@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26849F76176273C6005F9E31 /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F74176273C6005F9E31 /* RootViewController_iPhone.m */; };
+		26849F77176273C6005F9E31 /* RootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */; };
+		26849F7B176275F8005F9E31 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F7A176275F8005F9E31 /* ItemCell.m */; };
 		26FE9FEC1761D165003EB9E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FEB1761D165003EB9E6 /* UIKit.framework */; };
 		26FE9FEE1761D165003EB9E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FED1761D165003EB9E6 /* Foundation.framework */; };
 		26FE9FF01761D165003EB9E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FEF1761D165003EB9E6 /* CoreGraphics.framework */; };
@@ -14,21 +17,21 @@
 		26FE9FF81761D165003EB9E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26FE9FF61761D165003EB9E6 /* InfoPlist.strings */; };
 		26FE9FFA1761D165003EB9E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FE9FF91761D165003EB9E6 /* main.m */; };
 		26FE9FFE1761D165003EB9E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FE9FFD1761D165003EB9E6 /* AppDelegate.m */; };
-		26FEA0001761D165003EB9E6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FE9FFF1761D165003EB9E6 /* Default.png */; };
-		26FEA0021761D165003EB9E6 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FEA0011761D165003EB9E6 /* Default@2x.png */; };
-		26FEA0041761D165003EB9E6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26FEA0031761D165003EB9E6 /* Default-568h@2x.png */; };
 		26FEA0071761D165003EB9E6 /* Wundercrib.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26FEA0051761D165003EB9E6 /* Wundercrib.xcdatamodeld */; };
 		26FEA0121761D33F003EB9E6 /* Window_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26FEA0111761D33F003EB9E6 /* Window_iPhone.xib */; };
 		26FEA0151761D371003EB9E6 /* AppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FEA0141761D371003EB9E6 /* AppDelegate_iPhone.m */; };
 		26FEA01B1761D55C003EB9E6 /* AppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FEA01A1761D55C003EB9E6 /* AppDelegate_iPad.m */; };
 		26FEA01D1761D579003EB9E6 /* Window_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26FEA01C1761D578003EB9E6 /* Window_iPad.xib */; };
-		26FEA0231761D60E003EB9E6 /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FEA0211761D60E003EB9E6 /* RootViewController_iPhone.m */; };
-		26FEA0241761D60E003EB9E6 /* RootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26FEA0221761D60E003EB9E6 /* RootViewController_iPhone.xib */; };
 		26FEA0281761D697003EB9E6 /* RootViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FEA0261761D697003EB9E6 /* RootViewController_iPad.m */; };
 		26FEA0291761D697003EB9E6 /* RootViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26FEA0271761D697003EB9E6 /* RootViewController_iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26849F73176273C6005F9E31 /* RootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPhone.h; sourceTree = "<group>"; };
+		26849F74176273C6005F9E31 /* RootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPhone.m; sourceTree = "<group>"; };
+		26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController_iPhone.xib; sourceTree = "<group>"; };
+		26849F79176275F8005F9E31 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
+		26849F7A176275F8005F9E31 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		26FE9FE81761D165003EB9E6 /* Wundercrib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundercrib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FE9FEB1761D165003EB9E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		26FE9FED1761D165003EB9E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,9 +43,6 @@
 		26FE9FFB1761D165003EB9E6 /* Wundercrib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wundercrib-Prefix.pch"; sourceTree = "<group>"; };
 		26FE9FFC1761D165003EB9E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		26FE9FFD1761D165003EB9E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		26FE9FFF1761D165003EB9E6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		26FEA0011761D165003EB9E6 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		26FEA0031761D165003EB9E6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		26FEA0061761D165003EB9E6 /* Wundercrib.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wundercrib.xcdatamodel; sourceTree = "<group>"; };
 		26FEA0111761D33F003EB9E6 /* Window_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Window_iPhone.xib; sourceTree = "<group>"; };
 		26FEA0131761D371003EB9E6 /* AppDelegate_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_iPhone.h; sourceTree = "<group>"; };
@@ -50,9 +50,6 @@
 		26FEA0191761D55C003EB9E6 /* AppDelegate_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_iPad.h; sourceTree = "<group>"; };
 		26FEA01A1761D55C003EB9E6 /* AppDelegate_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate_iPad.m; sourceTree = "<group>"; };
 		26FEA01C1761D578003EB9E6 /* Window_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Window_iPad.xib; sourceTree = "<group>"; };
-		26FEA0201761D60E003EB9E6 /* RootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPhone.h; sourceTree = "<group>"; };
-		26FEA0211761D60E003EB9E6 /* RootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPhone.m; sourceTree = "<group>"; };
-		26FEA0221761D60E003EB9E6 /* RootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController_iPhone.xib; sourceTree = "<group>"; };
 		26FEA0251761D697003EB9E6 /* RootViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPad.h; sourceTree = "<group>"; };
 		26FEA0261761D697003EB9E6 /* RootViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPad.m; sourceTree = "<group>"; };
 		26FEA0271761D697003EB9E6 /* RootViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController_iPad.xib; sourceTree = "<group>"; };
@@ -73,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26849F78176275CF005F9E31 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				26849F79176275F8005F9E31 /* ItemCell.h */,
+				26849F7A176275F8005F9E31 /* ItemCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		26FE9FDF1761D165003EB9E6 = {
 			isa = PBXGroup;
 			children = (
@@ -119,9 +125,6 @@
 				26FE9FF61761D165003EB9E6 /* InfoPlist.strings */,
 				26FE9FF91761D165003EB9E6 /* main.m */,
 				26FE9FFB1761D165003EB9E6 /* Wundercrib-Prefix.pch */,
-				26FE9FFF1761D165003EB9E6 /* Default.png */,
-				26FEA0011761D165003EB9E6 /* Default@2x.png */,
-				26FEA0031761D165003EB9E6 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 		26FEA00F1761D210003EB9E6 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				26849F78176275CF005F9E31 /* Views */,
 				26FEA0161761D3BD003EB9E6 /* AppDelegate */,
 				26FEA0101761D222003EB9E6 /* Model */,
 			);
@@ -219,9 +223,9 @@
 		26FEA02B1761D6CF003EB9E6 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				26FEA0201761D60E003EB9E6 /* RootViewController_iPhone.h */,
-				26FEA0211761D60E003EB9E6 /* RootViewController_iPhone.m */,
-				26FEA0221761D60E003EB9E6 /* RootViewController_iPhone.xib */,
+				26849F73176273C6005F9E31 /* RootViewController_iPhone.h */,
+				26849F74176273C6005F9E31 /* RootViewController_iPhone.m */,
+				26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -278,13 +282,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				26FE9FF81761D165003EB9E6 /* InfoPlist.strings in Resources */,
-				26FEA0001761D165003EB9E6 /* Default.png in Resources */,
-				26FEA0021761D165003EB9E6 /* Default@2x.png in Resources */,
-				26FEA0041761D165003EB9E6 /* Default-568h@2x.png in Resources */,
 				26FEA0121761D33F003EB9E6 /* Window_iPhone.xib in Resources */,
 				26FEA01D1761D579003EB9E6 /* Window_iPad.xib in Resources */,
-				26FEA0241761D60E003EB9E6 /* RootViewController_iPhone.xib in Resources */,
 				26FEA0291761D697003EB9E6 /* RootViewController_iPad.xib in Resources */,
+				26849F77176273C6005F9E31 /* RootViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,8 +301,9 @@
 				26FEA0071761D165003EB9E6 /* Wundercrib.xcdatamodeld in Sources */,
 				26FEA0151761D371003EB9E6 /* AppDelegate_iPhone.m in Sources */,
 				26FEA01B1761D55C003EB9E6 /* AppDelegate_iPad.m in Sources */,
-				26FEA0231761D60E003EB9E6 /* RootViewController_iPhone.m in Sources */,
 				26FEA0281761D697003EB9E6 /* RootViewController_iPad.m in Sources */,
+				26849F76176273C6005F9E31 /* RootViewController_iPhone.m in Sources */,
+				26849F7B176275F8005F9E31 /* ItemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +422,7 @@
 				26FEA00C1761D165003EB9E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
