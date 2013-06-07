@@ -1,5 +1,5 @@
 //
-//  RootViewController_iPhoneViewController.h
+//  ItemCell.h
 //  Wundercrib
 //
 //  Created by Sven Straubinger on 07.06.13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController_iPhoneViewController : UITableViewController
+@interface ItemCell : UITableViewCell
 
 @end
