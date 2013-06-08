@@ -28,6 +28,8 @@
 	<string>Window_iPhone</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>Window_iPad</string>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

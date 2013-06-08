@@ -85,6 +85,14 @@ NSString *const kCellIdentifier = @"kCellIdentifier";
         [cell addGestureRecognizer:cell.panGestureRecognizer];
     }
     
+    if(cell.longPressGestureRecognizer == nil)
+    {
+#warning Bissi strange
+        cell.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self
+                                                                                       action:@selector(longPress:)];
+        [cell addGestureRecognizer:cell.longPressGestureRecognizer];
+    }
+    
     // The first cell is special since it is responsible for task creation
     // Move it more to the border
     if([indexPath section] == 0 && [indexPath row] == 0)
@@ -127,15 +135,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -149,34 +148,27 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 */
 
-/*
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
+
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the item to be re-orderable.
+    if (indexPath.section == 0 && indexPath.row == 0) // Don't move the first row in the first section
+        return NO;
+    
     return YES;
 }
-*/
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 #pragma mark - Private Methods
 
@@ -231,6 +223,22 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                              } completion:^(BOOL finished) {
                                  // Do nothing yet
                              }];
+        }
+    }
+}
+
+- (void)longPress:(UILongPressGestureRecognizer*)recognizer
+{
+    DLog(@"Long press detected");
+    // Toggle editing mode
+    [recognizer.view removeGestureRecognizer:recognizer];
+    [self.tableView setEditing:!self.tableView.editing];
+#warning VERY TEMP
+    for(UIView *view in self.tableView.subviews)
+    {
+        for(UIGestureRecognizer *rec in view.gestureRecognizers)
+        {
+            [view removeGestureRecognizer:rec];
         }
     }
 }

@@ -10,6 +10,14 @@
 		26849F76176273C6005F9E31 /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F74176273C6005F9E31 /* RootViewController_iPhone.m */; };
 		26849F77176273C6005F9E31 /* RootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */; };
 		26849F7B176275F8005F9E31 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F7A176275F8005F9E31 /* ItemCell.m */; };
+		26849F861762B19F005F9E31 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F7E1762B19F005F9E31 /* Icon-72.png */; };
+		26849F871762B19F005F9E31 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F7F1762B19F005F9E31 /* Icon-72@2x.png */; };
+		26849F881762B19F005F9E31 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F801762B19F005F9E31 /* Icon-Small-50.png */; };
+		26849F891762B19F005F9E31 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F811762B19F005F9E31 /* Icon-Small-50@2x.png */; };
+		26849F8A1762B19F005F9E31 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F821762B19F005F9E31 /* Icon-Small.png */; };
+		26849F8B1762B19F005F9E31 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F831762B19F005F9E31 /* Icon-Small@2x.png */; };
+		26849F8C1762B19F005F9E31 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F841762B19F005F9E31 /* Icon.png */; };
+		26849F8D1762B19F005F9E31 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26849F851762B19F005F9E31 /* Icon@2x.png */; };
 		26FE9FEC1761D165003EB9E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FEB1761D165003EB9E6 /* UIKit.framework */; };
 		26FE9FEE1761D165003EB9E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FED1761D165003EB9E6 /* Foundation.framework */; };
 		26FE9FF01761D165003EB9E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FEF1761D165003EB9E6 /* CoreGraphics.framework */; };
@@ -32,6 +40,14 @@
 		26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController_iPhone.xib; sourceTree = "<group>"; };
 		26849F79176275F8005F9E31 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		26849F7A176275F8005F9E31 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
+		26849F7E1762B19F005F9E31 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		26849F7F1762B19F005F9E31 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		26849F801762B19F005F9E31 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		26849F811762B19F005F9E31 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		26849F821762B19F005F9E31 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		26849F831762B19F005F9E31 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		26849F841762B19F005F9E31 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		26849F851762B19F005F9E31 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		26FE9FE81761D165003EB9E6 /* Wundercrib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundercrib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FE9FEB1761D165003EB9E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		26FE9FED1761D165003EB9E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,6 +95,29 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		26849F7C1762B189005F9E31 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				26849F7D1762B190005F9E31 /* Icon */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		26849F7D1762B190005F9E31 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				26849F7E1762B19F005F9E31 /* Icon-72.png */,
+				26849F7F1762B19F005F9E31 /* Icon-72@2x.png */,
+				26849F801762B19F005F9E31 /* Icon-Small-50.png */,
+				26849F811762B19F005F9E31 /* Icon-Small-50@2x.png */,
+				26849F821762B19F005F9E31 /* Icon-Small.png */,
+				26849F831762B19F005F9E31 /* Icon-Small@2x.png */,
+				26849F841762B19F005F9E31 /* Icon.png */,
+				26849F851762B19F005F9E31 /* Icon@2x.png */,
+			);
+			name = Icon;
+			sourceTree = "<group>";
+		};
 		26FE9FDF1761D165003EB9E6 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +160,7 @@
 		26FE9FF41761D165003EB9E6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				26849F7C1762B189005F9E31 /* Resources */,
 				26FE9FF51761D165003EB9E6 /* Wundercrib-Info.plist */,
 				26FE9FF61761D165003EB9E6 /* InfoPlist.strings */,
 				26FE9FF91761D165003EB9E6 /* main.m */,
@@ -286,6 +326,14 @@
 				26FEA01D1761D579003EB9E6 /* Window_iPad.xib in Resources */,
 				26FEA0291761D697003EB9E6 /* RootViewController_iPad.xib in Resources */,
 				26849F77176273C6005F9E31 /* RootViewController_iPhone.xib in Resources */,
+				26849F861762B19F005F9E31 /* Icon-72.png in Resources */,
+				26849F871762B19F005F9E31 /* Icon-72@2x.png in Resources */,
+				26849F881762B19F005F9E31 /* Icon-Small-50.png in Resources */,
+				26849F891762B19F005F9E31 /* Icon-Small-50@2x.png in Resources */,
+				26849F8A1762B19F005F9E31 /* Icon-Small.png in Resources */,
+				26849F8B1762B19F005F9E31 /* Icon-Small@2x.png in Resources */,
+				26849F8C1762B19F005F9E31 /* Icon.png in Resources */,
+				26849F8D1762B19F005F9E31 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
