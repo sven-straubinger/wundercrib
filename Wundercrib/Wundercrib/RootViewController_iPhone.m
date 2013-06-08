@@ -45,6 +45,11 @@ NSString *const kCellIdentifier = @"kCellIdentifier";
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Setup image view background
+    UIImageView *backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"wood-bg.jpg"]];
+    [backgroundView setContentMode:UIViewContentModeTopLeft];
+    [self.tableView setBackgroundView:backgroundView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -168,6 +173,36 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 #pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 46.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if(section == 0)
+    {
+        return 10.0;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    // Get last section
+    if(section == ([self.tableView numberOfSections] - 1))
+    {
+        return 10.0;
+    }
+    else
+    {
+        return 0;
+    }
+}
 
 
 #pragma mark - Private Methods
