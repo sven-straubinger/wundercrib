@@ -17,6 +17,9 @@
 		26419961176364D000BE386A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26419959176364D000BE386A /* Icon@2x.png */; };
 		264199651763733D00BE386A /* wood-bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 264199631763733D00BE386A /* wood-bg.jpg */; };
 		264199661763733D00BE386A /* wood-bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 264199641763733D00BE386A /* wood-bg@2x.jpg */; };
+		2641996A17637BF400BE386A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2641996717637BF400BE386A /* Default-568h@2x.png */; };
+		2641996B17637BF400BE386A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2641996817637BF400BE386A /* Default.png */; };
+		2641996C17637BF400BE386A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2641996917637BF400BE386A /* Default@2x.png */; };
 		26849F76176273C6005F9E31 /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F74176273C6005F9E31 /* RootViewController_iPhone.m */; };
 		26849F77176273C6005F9E31 /* RootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */; };
 		26849F7B176275F8005F9E31 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F7A176275F8005F9E31 /* ItemCell.m */; };
@@ -47,6 +50,9 @@
 		26419959176364D000BE386A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		264199631763733D00BE386A /* wood-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wood-bg.jpg"; sourceTree = "<group>"; };
 		264199641763733D00BE386A /* wood-bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wood-bg@2x.jpg"; sourceTree = "<group>"; };
+		2641996717637BF400BE386A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		2641996817637BF400BE386A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		2641996917637BF400BE386A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		26849F73176273C6005F9E31 /* RootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_iPhone.h; sourceTree = "<group>"; };
 		26849F74176273C6005F9E31 /* RootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController_iPhone.m; sourceTree = "<group>"; };
 		26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -95,9 +101,20 @@
 			children = (
 				264199631763733D00BE386A /* wood-bg.jpg */,
 				264199641763733D00BE386A /* wood-bg@2x.jpg */,
+				2641996D17637BFE00BE386A /* Default */,
 				26849F7D1762B190005F9E31 /* Icon */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		2641996D17637BFE00BE386A /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				2641996717637BF400BE386A /* Default-568h@2x.png */,
+				2641996817637BF400BE386A /* Default.png */,
+				2641996917637BF400BE386A /* Default@2x.png */,
+			);
+			name = Default;
 			sourceTree = "<group>";
 		};
 		26849F78176275CF005F9E31 /* Views */ = {
@@ -350,6 +367,9 @@
 				26419961176364D000BE386A /* Icon@2x.png in Resources */,
 				264199651763733D00BE386A /* wood-bg.jpg in Resources */,
 				264199661763733D00BE386A /* wood-bg@2x.jpg in Resources */,
+				2641996A17637BF400BE386A /* Default-568h@2x.png in Resources */,
+				2641996B17637BF400BE386A /* Default.png in Resources */,
+				2641996C17637BF400BE386A /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

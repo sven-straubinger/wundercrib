@@ -63,13 +63,13 @@ NSString *const kCellIdentifier = @"kCellIdentifier";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // The app contains two sections, one for open tasks and one for already completed tasks
-    return 2;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 10;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
