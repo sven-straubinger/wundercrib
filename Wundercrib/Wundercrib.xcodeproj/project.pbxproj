@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		263614FB1763917A00E8C2FE /* SplashscreenViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 263614F91763917A00E8C2FE /* SplashscreenViewController_iPhone.m */; };
+		263614FC1763917A00E8C2FE /* SplashscreenViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 263614FA1763917A00E8C2FE /* SplashscreenViewController_iPhone.xib */; };
+		26361500176392E100E8C2FE /* UIDevice+Identification.m in Sources */ = {isa = PBXBuildFile; fileRef = 263614FF176392E100E8C2FE /* UIDevice+Identification.m */; };
 		2641995A176364D000BE386A /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 26419952176364D000BE386A /* Icon-72.png */; };
 		2641995B176364D000BE386A /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26419953176364D000BE386A /* Icon-72@2x.png */; };
 		2641995C176364D000BE386A /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 26419954176364D000BE386A /* Icon-Small-50.png */; };
@@ -23,6 +26,7 @@
 		26849F76176273C6005F9E31 /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F74176273C6005F9E31 /* RootViewController_iPhone.m */; };
 		26849F77176273C6005F9E31 /* RootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */; };
 		26849F7B176275F8005F9E31 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F7A176275F8005F9E31 /* ItemCell.m */; };
+		26F88F25176397CE00A4D2FC /* UIImage+Refactor.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F88F24176397CE00A4D2FC /* UIImage+Refactor.m */; };
 		26FE9FEC1761D165003EB9E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FEB1761D165003EB9E6 /* UIKit.framework */; };
 		26FE9FEE1761D165003EB9E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FED1761D165003EB9E6 /* Foundation.framework */; };
 		26FE9FF01761D165003EB9E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FEF1761D165003EB9E6 /* CoreGraphics.framework */; };
@@ -40,6 +44,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		263614F81763917A00E8C2FE /* SplashscreenViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashscreenViewController_iPhone.h; sourceTree = "<group>"; };
+		263614F91763917A00E8C2FE /* SplashscreenViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashscreenViewController_iPhone.m; sourceTree = "<group>"; };
+		263614FA1763917A00E8C2FE /* SplashscreenViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashscreenViewController_iPhone.xib; sourceTree = "<group>"; };
+		263614FE176392E100E8C2FE /* UIDevice+Identification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Identification.h"; sourceTree = "<group>"; };
+		263614FF176392E100E8C2FE /* UIDevice+Identification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Identification.m"; sourceTree = "<group>"; };
 		26419952176364D000BE386A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		26419953176364D000BE386A /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		26419954176364D000BE386A /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -58,6 +67,8 @@
 		26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController_iPhone.xib; sourceTree = "<group>"; };
 		26849F79176275F8005F9E31 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		26849F7A176275F8005F9E31 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
+		26F88F23176397CE00A4D2FC /* UIImage+Refactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Refactor.h"; sourceTree = "<group>"; };
+		26F88F24176397CE00A4D2FC /* UIImage+Refactor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Refactor.m"; sourceTree = "<group>"; };
 		26FE9FE81761D165003EB9E6 /* Wundercrib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundercrib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26FE9FEB1761D165003EB9E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		26FE9FED1761D165003EB9E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,6 +107,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		263614F71763915700E8C2FE /* Splashscreen */ = {
+			isa = PBXGroup;
+			children = (
+				263614F81763917A00E8C2FE /* SplashscreenViewController_iPhone.h */,
+				263614F91763917A00E8C2FE /* SplashscreenViewController_iPhone.m */,
+				263614FA1763917A00E8C2FE /* SplashscreenViewController_iPhone.xib */,
+			);
+			name = Splashscreen;
+			sourceTree = "<group>";
+		};
+		263614FD1763927500E8C2FE /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				263614FE176392E100E8C2FE /* UIDevice+Identification.h */,
+				263614FF176392E100E8C2FE /* UIDevice+Identification.m */,
+				26F88F23176397CE00A4D2FC /* UIImage+Refactor.h */,
+				26F88F24176397CE00A4D2FC /* UIImage+Refactor.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		264199621763732300BE386A /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,9 +253,10 @@
 		26FEA00F1761D210003EB9E6 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				26849F78176275CF005F9E31 /* Views */,
 				26FEA0161761D3BD003EB9E6 /* AppDelegate */,
+				263614FD1763927500E8C2FE /* Categories */,
 				26FEA0101761D222003EB9E6 /* Model */,
+				26849F78176275CF005F9E31 /* Views */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -268,6 +301,7 @@
 		26FEA01E1761D5E7003EB9E6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				263614F71763915700E8C2FE /* Splashscreen */,
 				26FEA02B1761D6CF003EB9E6 /* Root */,
 			);
 			name = ViewController;
@@ -370,6 +404,7 @@
 				2641996A17637BF400BE386A /* Default-568h@2x.png in Resources */,
 				2641996B17637BF400BE386A /* Default.png in Resources */,
 				2641996C17637BF400BE386A /* Default@2x.png in Resources */,
+				263614FC1763917A00E8C2FE /* SplashscreenViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +423,9 @@
 				26FEA0281761D697003EB9E6 /* RootViewController_iPad.m in Sources */,
 				26849F76176273C6005F9E31 /* RootViewController_iPhone.m in Sources */,
 				26849F7B176275F8005F9E31 /* ItemCell.m in Sources */,
+				263614FB1763917A00E8C2FE /* SplashscreenViewController_iPhone.m in Sources */,
+				26361500176392E100E8C2FE /* UIDevice+Identification.m in Sources */,
+				26F88F25176397CE00A4D2FC /* UIImage+Refactor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
