@@ -44,6 +44,10 @@
     [splash setDelegate:self];
     [self.splashscreenWindow setRootViewController:splash];
     
+#warning TEMP
+    // Create dummy data
+    [[CoreDataController sharedInstance]createDummyData];
+    
     return YES;
 }
 

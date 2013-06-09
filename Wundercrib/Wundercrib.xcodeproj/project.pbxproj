@@ -26,6 +26,8 @@
 		26849F76176273C6005F9E31 /* RootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F74176273C6005F9E31 /* RootViewController_iPhone.m */; };
 		26849F77176273C6005F9E31 /* RootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */; };
 		26849F7B176275F8005F9E31 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26849F7A176275F8005F9E31 /* ItemCell.m */; };
+		26F78D2C1764A82C000640AD /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F78D2B1764A82C000640AD /* CoreDataController.m */; };
+		26F78D2F1764AAA1000640AD /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F78D2E1764AAA0000640AD /* Item.m */; };
 		26F88F25176397CE00A4D2FC /* UIImage+Refactor.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F88F24176397CE00A4D2FC /* UIImage+Refactor.m */; };
 		26FE9FEC1761D165003EB9E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FEB1761D165003EB9E6 /* UIKit.framework */; };
 		26FE9FEE1761D165003EB9E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FE9FED1761D165003EB9E6 /* Foundation.framework */; };
@@ -67,6 +69,10 @@
 		26849F75176273C6005F9E31 /* RootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController_iPhone.xib; sourceTree = "<group>"; };
 		26849F79176275F8005F9E31 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		26849F7A176275F8005F9E31 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
+		26F78D2A1764A82C000640AD /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
+		26F78D2B1764A82C000640AD /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataController.m; sourceTree = "<group>"; };
+		26F78D2D1764AAA0000640AD /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		26F78D2E1764AAA0000640AD /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		26F88F23176397CE00A4D2FC /* UIImage+Refactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Refactor.h"; sourceTree = "<group>"; };
 		26F88F24176397CE00A4D2FC /* UIImage+Refactor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Refactor.m"; sourceTree = "<group>"; };
 		26FE9FE81761D165003EB9E6 /* Wundercrib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundercrib.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +270,10 @@
 		26FEA0101761D222003EB9E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				26F78D2A1764A82C000640AD /* CoreDataController.h */,
+				26F78D2B1764A82C000640AD /* CoreDataController.m */,
+				26F78D2D1764AAA0000640AD /* Item.h */,
+				26F78D2E1764AAA0000640AD /* Item.m */,
 				26FEA0051761D165003EB9E6 /* Wundercrib.xcdatamodeld */,
 			);
 			name = Model;
@@ -426,6 +436,8 @@
 				263614FB1763917A00E8C2FE /* SplashscreenViewController_iPhone.m in Sources */,
 				26361500176392E100E8C2FE /* UIDevice+Identification.m in Sources */,
 				26F88F25176397CE00A4D2FC /* UIImage+Refactor.m in Sources */,
+				26F78D2C1764A82C000640AD /* CoreDataController.m in Sources */,
+				26F78D2F1764AAA1000640AD /* Item.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
