@@ -8,15 +8,29 @@
 
 #import "RootViewController_iPhone.h"
 #import "ItemCell.h"
+#import "Item.h"
+#import "CoreDataController.h"
+#import "UIView+FindAndResignFirstResponder.h"
 
-@interface RootViewController_iPhone ()
+// Class is implementing the NSFetchedResultsControllerDelegate Methods
+@interface RootViewController_iPhone () <NSFetchedResultsControllerDelegate, ItemCellDelegate>
+
+// Create strong reference to fetchedResultsController Instance
+@property(nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+
+// Tap gesture recognizer to resign first responder
+@property (nonatomic, strong) UITapGestureRecognizer *oneFingerOneTap;
+
+- (void)addItem;
+- (void)removeItem;
 
 @end
 
-@implementation RootViewController_iPhone
+@implementation RootViewController_iPhone 
 
 // Define cell identifier as constant
-NSString *const kCellIdentifier = @"kCellIdentifier";
+NSString *const kCellIdentifier   = @"kCellIdentifier";
+NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,25 +45,78 @@ NSString *const kCellIdentifier = @"kCellIdentifier";
 {
     [super viewDidLoad];
     
+    // Set title
+    [self setTitle:@"Wundercrib"];
+    
     // Register item cell
     [self.tableView registerClass:[ItemCell class] forCellReuseIdentifier:kCellIdentifier];
-    
-    // Hide UINavigationController by default
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:kHeaderIdentifier];
     
     // Remove the default seperators
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // App 'plus' button
+    // * INFO * 
+    // We don't use a navigation bar button item but a subview to have more control over the style.
+    // Since this is an 'Single page app' this won't cause problems, because no view controller is pushed on top.
+    CGSize navigationBarSize = self.navigationController.navigationBar.frame.size;
+    CGSize buttonSize = CGSizeMake(46, navigationBarSize.height);
+        
+    // Add navigation bar buttons
+    UIButton *plusButton = [[UIButton alloc] initWithFrame:CGRectMake(navigationBarSize.width-buttonSize.width,
+                                                                      0,
+                                                                      buttonSize.width,
+                                                                      buttonSize.height)];
+    [plusButton setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+    [plusButton addTarget:self action:@selector(addItem) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:plusButton];
     
     // Setup image view background
     UIImageView *backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"wood-bg.jpg"]];
     [backgroundView setContentMode:UIViewContentModeTopLeft];
     [self.tableView setBackgroundView:backgroundView];
+    
+#warning Can be copied to CDC
+    // Data Handling
+    // Get reference to CoreDataController
+    CoreDataController *cdc = [CoreDataController sharedInstance];
+    
+    //	Create Fetch Request
+    NSFetchRequest *fetchRequest = nil;
+    fetchRequest = [[NSFetchRequest alloc]init];
+
+    // Define entity description
+    NSEntityDescription *entity = nil;
+    entity = [NSEntityDescription entityForName:@"Item" inManagedObjectContext:[cdc managedObjectContext]];
+    
+    // Set entitiy
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchBatchSize:200];
+    
+    // Define sort descriptors
+    NSSortDescriptor *resolvedSortDescriptor = nil;
+    resolvedSortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"resolved" ascending:YES];
+    
+    NSSortDescriptor *orderSortDescriptor = nil;
+    orderSortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"displayOrder" ascending:NO];
+    
+    [fetchRequest setSortDescriptors:@[resolvedSortDescriptor, orderSortDescriptor]];
+    
+    // Create sections for resolved and unresolved items
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest
+                                                                       managedObjectContext:[cdc managedObjectContext]
+                                                                         sectionNameKeyPath:@"resolved"
+                                                                                  cacheName:nil];
+    [self.fetchedResultsController setDelegate:self];
+    
+    // Start fetching
+    NSError *error;
+	if (![[self fetchedResultsController] performFetch:&error]) {
+#warning Remove -1
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,24 +129,26 @@ NSString *const kCellIdentifier = @"kCellIdentifier";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // The app contains two sections, one for open tasks and one for already completed tasks
-    return 0;
+    // The app contains two sections, one for open tasks and one for already resolved items/tasks
+    int sectionsCount = [[self.fetchedResultsController sections]count];
+    return sectionsCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return 0;
+    id  sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Get cell from queue or create new cell (available since iOS 6)
     ItemCell *cell = (ItemCell*)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
- 
-    // Configure the cell...
-    [cell.textLabel setText:@"Hello"];
     
+    // Configure cell
+    [self configureCell:cell atIndexPath:indexPath];
+    
+#warning RE-COMMENT
     // Setup pan gesture recognizer
     if(cell.panGestureRecognizer == nil)
     {
@@ -97,23 +166,48 @@ NSString *const kCellIdentifier = @"kCellIdentifier";
                                                                                        action:@selector(longPress:)];
         [cell addGestureRecognizer:cell.longPressGestureRecognizer];
     }
+
+#warning REVIEW FIRST CELL MANAGEMENT
+//    // The first cell is special since it is responsible for task creation
+//    // Move it more to the border
+//    if([indexPath section] == 0 && [indexPath row] == 0)
+//    {
+//        [cell.textLabel setText:@"+"];
+//        
+//        // Thus we disable the scroll view touches when working with the first cell
+//        [cell.panGestureRecognizer setDelegate:nil];
+//    }
+//    else
+//    {
+//        //    [cell.panGestureRecognizer requireGestureRecognizerToFail:self.tableView.panGestureRecognizer];
+//        [cell.panGestureRecognizer setDelegate:self];
+//    }
     
-    // The first cell is special since it is responsible for task creation
-    // Move it more to the border
-    if([indexPath section] == 0 && [indexPath row] == 0)
-    {
-        [cell.textLabel setText:@"+"];
-        
-        // Thus we disable the scroll view touches when working with the first cell
-        [cell.panGestureRecognizer setDelegate:nil];
-    }
-    else
-    {
-        //    [cell.panGestureRecognizer requireGestureRecognizerToFail:self.tableView.panGestureRecognizer];
-        [cell.panGestureRecognizer setDelegate:self];
-    }
+#warning REVIEW
+//    [cell.panGestureRecognizer setDelegate:self];
+    [cell.panGestureRecognizer setDelegate:nil];
+    cell.panGestureRecognizer = nil;
+
+    
+    // Set cell delegate
+    [cell setDelegate:self];
     
     return cell;
+}
+
+#warning REVIEW
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    // Get item for index path
+    Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    // Cast cell
+    ItemCell *itemCell = (ItemCell*)cell;
+    
+    // Configure the cell...
+    [itemCell.textfield setText:item.title];
+    [itemCell setResolved:item.resolved];
 }
 
 #warning TESt
@@ -124,51 +218,47 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     return YES;
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    
-    // Define first index path in first section
-    NSIndexPath *firstRowFirstSection = [NSIndexPath indexPathForRow:0
-                                                           inSection:0];
-    
-    // Move first cell out of screen
-    ItemCell *itemCell = (ItemCell*)[self.tableView cellForRowAtIndexPath:firstRowFirstSection];
-    CGRect itemCellFrame = itemCell.frame;
-    itemCellFrame.origin.x = -50;
-    itemCell.frame = itemCellFrame;
-}
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleNone;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+    DLog(@"%s",__PRETTY_FUNCTION__);
+    
+    NSMutableArray *things = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+    
+    // Grab the item we're moving.
+    NSManagedObject *thing = [self.fetchedResultsController objectAtIndexPath:fromIndexPath];
+    
+    // Remove the object we're moving from the array.
+    [things removeObject:thing];
+    // Now re-insert it at the destination.
+    [things insertObject:thing atIndex:[toIndexPath row]];
+    
+    // All of the objects are now in their correct order. Update each
+    // object's displayOrder field by iterating through the array.
+//    int i = 0;
+//    for (NSManagedObject *mo in things)
+//    {
+//        [mo setValue:[NSNumber numberWithInt:i++] forKey:@"displayOrder"];
+//    }
+    
+    things = nil;
+    
+    [[[CoreDataController sharedInstance]managedObjectContext] save:nil];
 }
 
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 && indexPath.row == 0) // Don't move the first row in the first section
-        return NO;
-    
+{    
     return YES;
 }
 
@@ -181,27 +271,17 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if(section == 0)
-    {
-        return 10.0;
-    }
-    else
-    {
-        return 0;
-    }
+    return 20.0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    // Get last section
-    if(section == ([self.tableView numberOfSections] - 1))
-    {
-        return 10.0;
-    }
-    else
-    {
-        return 0;
-    }
+    UITableViewHeaderFooterView *view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:kHeaderIdentifier];
+    [view.contentView setBackgroundColor:[UIColor clearColor]];
+    UIView *background = [[UIView alloc]initWithFrame:view.bounds];
+    [background setBackgroundColor:[UIColor clearColor]];
+    [view setBackgroundView:background];
+    return view;
 }
 
 
@@ -217,8 +297,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CGFloat diff = fabsf(self.tableView.center.x - recognizer.view.center.x);
     if(diff > 10)
     {
+#warning REVIEW
         // Disallow simultanous recognizer
-        [recognizer setDelegate:nil];
+//        [recognizer setDelegate:nil];
     }
     
     // Animate to final positions when pan gesture ended 
@@ -231,6 +312,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         
         if(recognizer.view.center.x > (self.tableView.center.x + threshold))
         {
+            // Move cell outside screen
             [UIView animateWithDuration:0.3
                                   delay:0.0
                                 options:UIViewAnimationOptionCurveEaseOut
@@ -241,7 +323,17 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                  frame.origin.x = self.tableView.frame.size.width;
                                  recognizer.view.frame = frame;
                              } completion:^(BOOL finished) {
-                                 // Do nothing yet
+
+                                 // Get Item Cell and hide it
+                                 ItemCell *itemCell     = (ItemCell*)recognizer.view;
+                                 [itemCell setHidden:YES];
+                                 
+                                 // Get mapped index path
+                                 NSIndexPath *indexPath = [self.tableView indexPathForCell:itemCell];
+                                 
+                                 // Get item
+                                 Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+                                 [[CoreDataController sharedInstance]deleteItem:item];
                              }];
         }
         else
@@ -264,18 +356,167 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)longPress:(UILongPressGestureRecognizer*)recognizer
 {
-    DLog(@"Long press detected");
-    // Toggle editing mode
-    [recognizer.view removeGestureRecognizer:recognizer];
-    [self.tableView setEditing:!self.tableView.editing];
-#warning VERY TEMP
-    for(UIView *view in self.tableView.subviews)
+    if([recognizer.view isFirstResponder])
     {
-        for(UIGestureRecognizer *rec in view.gestureRecognizers)
+        // Cell is already first responder, return
+        return;
+    }
+    
+    ItemCell *itemCell = (ItemCell*)recognizer.view;
+    // Allow user interaction and focus as first responder
+    [itemCell.textfield becomeFirstResponder];
+    
+    // Toggle editing mode
+//    [recognizer.view removeGestureRecognizer:recognizer];
+    [self.tableView setEditing:YES animated:YES];
+#warning VERY TEMP
+//    for(UIView *view in self.tableView.subviews)
+//    {
+//        for(UIGestureRecognizer *rec in view.gestureRecognizers)
+//        {
+//            [view removeGestureRecognizer:rec];
+//        }
+//    }
+}
+
+#pragma mark - NSFetchedResultsController - Delegate Methods
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    UITableView *tableView = self.tableView;
+    
+    DLog(@"TYPE %d", type);
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id )sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
+}
+
+#pragma mark - Item Cell Delegate Methods
+
+- (void)itemCell:(ItemCell *)cell changedCheckmarkStateTo:(BOOL)selected
+{
+    // Get mapped index path for cell
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+    // Get item for index path
+    Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    // Set the new value (resolved = selected)
+    [item setResolved:selected];
+}
+
+- (void)itemCell:(ItemCell *)cell changedItemTitleTo:(NSString *)title
+{
+    // Get mapped index path for cell
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];   
+    
+    // Get item for index path
+    Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    // Set the new value (resolved = selected)
+    [item setTitle:title];
+}
+
+#pragma mark - Private Methods
+
+- (void)addItem
+{
+    // Create new item
+    [[CoreDataController sharedInstance]createItem];
+    
+    // Select newest cell
+    NSIndexPath *firstCell = [NSIndexPath indexPathForRow:0 inSection:0];
+    ItemCell *itemCell     = (ItemCell*)[self.tableView cellForRowAtIndexPath:firstCell];
+    
+    // Allow user interaction and focus as first responder
+    [itemCell.textfield becomeFirstResponder];
+}
+
+- (void)globallyResignFirstResponder:(UITapGestureRecognizer*)recognizer
+{
+    DLog(@"%s", __PRETTY_FUNCTION__);    
+#warning REMOVE CATEGORY
+    [self.tableView findAndResignFirstResponder];
+    [self.tableView setEditing:NO animated:YES];
+}
+
+- (void)itemCell:(ItemCell *)cell textfieldWillBecomeFirstResponder:(InteractionTextField*)textField
+{
+    DLog(@"%s", __PRETTY_FUNCTION__);
+    self.oneFingerOneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(globallyResignFirstResponder:)];
+    [self.tableView addGestureRecognizer:self.oneFingerOneTap];
+}
+
+- (void)itemCell:(ItemCell *)cell textfieldWillResignFirstResponder:(InteractionTextField*)textField
+{
+    
+#warning Gets called several times
+#warning Maybe use notifications
+    DLog(@"%s", __PRETTY_FUNCTION__);
+    
+    // Remove all gesture recognizers from table view
+    for(UIGestureRecognizer *recognizer in self.tableView.gestureRecognizers)
+    {
+        if([recognizer isKindOfClass:[UITapGestureRecognizer class]])
         {
-            [view removeGestureRecognizer:rec];
+            [self.tableView removeGestureRecognizer:recognizer];
         }
     }
+    self.oneFingerOneTap = nil;
 }
 
 @end

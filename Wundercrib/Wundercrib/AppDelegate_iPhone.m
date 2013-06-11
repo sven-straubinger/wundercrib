@@ -46,7 +46,7 @@
     
 #warning TEMP
     // Create dummy data
-    [[CoreDataController sharedInstance]createDummyData];
+//    [[CoreDataController sharedInstance]createDummyData];
     
     return YES;
 }

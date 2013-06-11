@@ -63,7 +63,7 @@
     [super viewDidAppear:animated];
     
     // Animate alpha value
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:1.0
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{

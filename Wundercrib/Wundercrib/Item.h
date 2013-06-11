@@ -2,7 +2,7 @@
 //  Item.h
 //  Wundercrib
 //
-//  Created by Sven Straubinger on 09.06.13.
+//  Created by Sven Straubinger on 11.06.13.
 //  Copyright (c) 2013 Zeitfenster GbR. All rights reserved.
 //
 
@@ -12,7 +12,8 @@
 
 @interface Item : NSManagedObject
 
+@property (nonatomic) BOOL resolved;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSNumber * resolved;
+@property (nonatomic) int32_t displayOrder;
 
 @end

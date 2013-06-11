@@ -7,11 +7,19 @@
 //
 
 #import "AppDelegate.h"
+#import "UIImage+Drawing.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Get image
+    UIImage *background = [UIImage imageForNavigationBarBackground];
+    
+    // Set appearance
+    [[UINavigationBar appearance]setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance]setBackgroundImage:background forBarMetrics:UIBarMetricsLandscapePhone];
+    
     // Device specific implementations are set in AppDelegate_iPhone and AppDelegate_iPad
     return YES;
 }

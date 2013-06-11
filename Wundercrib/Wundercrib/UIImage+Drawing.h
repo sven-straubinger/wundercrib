@@ -1,18 +1,15 @@
 //
-//  Item.m
+//  UIImage+Drawing.h
 //  Wundercrib
 //
 //  Created by Sven Straubinger on 11.06.13.
 //  Copyright (c) 2013 Zeitfenster GbR. All rights reserved.
 //
 
-#import "Item.h"
+#import <UIKit/UIKit.h>
 
+@interface UIImage (Drawing)
 
-@implementation Item
-
-@dynamic resolved;
-@dynamic title;
-@dynamic displayOrder;
++ (UIImage*)imageForNavigationBarBackground;
 
 @end

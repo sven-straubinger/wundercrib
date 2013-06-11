@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Item.h"
 
 @interface CoreDataController : NSObject
 
@@ -21,6 +22,7 @@
 
 #warning TEMP
 - (void)createDummyData;
-
+- (void)createItem;
+- (void)deleteItem:(Item*)item;
 
 @end

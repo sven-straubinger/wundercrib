@@ -7,7 +7,12 @@
 //
 
 #import "CoreDataController.h"
-#import "Item.h"
+
+@interface CoreDataController ()
+
+- (int)getNextDisplayOrder;
+
+@end
 
 @implementation CoreDataController
 
@@ -131,14 +136,31 @@
     NSManagedObjectContext *moc = [self managedObjectContext];
     
     // Create new Item
-    Item *newItem = [NSEntityDescription
+    Item *newItem1 = [NSEntityDescription
+                     insertNewObjectForEntityForName:@"Item"
+                     inManagedObjectContext:moc];
+    
+    Item *newItem2 = [NSEntityDescription
+                     insertNewObjectForEntityForName:@"Item"
+                     inManagedObjectContext:moc];
+    
+    Item *newItem3 = [NSEntityDescription
                      insertNewObjectForEntityForName:@"Item"
                      inManagedObjectContext:moc];
     
     
     // Assign attributes
-    newItem.title    = @"Honey";
-    newItem.resolved = NO;
+    newItem1.title        = @"Milk";
+    newItem1.resolved     = NO;
+    newItem1.displayOrder = 1;
+    
+    newItem2.title        = @"Honey";
+    newItem2.resolved     = NO;
+    newItem2.displayOrder = 20;
+    
+    newItem3.title        = @"Water";
+    newItem3.resolved     = NO;
+    newItem3.displayOrder = 3;
     
     // Save current context
     NSError *error = nil;
@@ -147,6 +169,91 @@
     if(error)
     {
         DLog(@"An error occured during the context saving process");
+    }
+}
+
+- (void)createItem
+{
+    // Get current context
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    // Create new Item
+    Item *newItem = [NSEntityDescription
+                     insertNewObjectForEntityForName:@"Item"
+                     inManagedObjectContext:moc];
+    
+    
+    // Assign attributes
+    newItem.title    = @"";
+    newItem.resolved = NO;
+    newItem.displayOrder =  [self getNextDisplayOrder];
+    
+    // Save current context
+    NSError *error = nil;
+    [moc save:&error];
+    
+    if(error)
+    {
+        DLog(@"An error occured during the context saving process");
+    }
+}
+
+- (void)deleteItem:(Item*)item
+{
+    // Get context
+    NSManagedObjectContext *moc = [[CoreDataController sharedInstance]managedObjectContext];
+    
+    // Delete the item from Core Data
+    [moc deleteObject:item];
+    
+    // Save the changes
+    NSError *contextError = nil;
+    [moc save:&contextError];
+    
+    if(contextError)
+    {
+        DLog(@"An error occured during the saving process");
+    }
+}
+
+#warning Wann wird immer gespeichert????
+
+- (int)getNextDisplayOrder
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription
+                                              entityForName:@"Item" inManagedObjectContext:moc];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"displayOrder" ascending:YES];
+    [request setSortDescriptors:@[sortDescriptor]];
+    
+    NSError *error;
+    NSArray *array = [moc executeFetchRequest:request error:&error];
+    if (array == nil)
+    {
+        // Deal with error...
+        return 0;
+    }
+    else
+    {
+        int displayOrder = 0;
+        for(int i=0;i<[array count];i++)
+        {
+#warning REFACTOR OLD VALUES
+            // Refactor 'old' displayOrders
+            Item *item = (Item*)[array objectAtIndex:i];
+            
+            // Get the biggest value
+            displayOrder = MAX(item.displayOrder, displayOrder);
+        }
+        
+        // Increment to the new one
+        displayOrder++;
+        
+        return displayOrder;
     }
 }
 
