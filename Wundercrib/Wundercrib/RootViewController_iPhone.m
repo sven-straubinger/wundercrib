@@ -22,7 +22,6 @@
 @property (nonatomic, strong) UITapGestureRecognizer *oneFingerOneTap;
 
 - (void)addItem;
-- (void)removeItem;
 
 @end
 
@@ -148,47 +147,6 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
     // Configure cell
     [self configureCell:cell atIndexPath:indexPath];
     
-#warning RE-COMMENT
-    // Setup pan gesture recognizer
-    if(cell.panGestureRecognizer == nil)
-    {
-#warning Bissi strange
-        // Add to cell's UIPanGestureRecognizer
-        cell.panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self
-                                                                           action:@selector(pan:)];
-        [cell addGestureRecognizer:cell.panGestureRecognizer];
-    }
-    
-    if(cell.longPressGestureRecognizer == nil)
-    {
-#warning Bissi strange
-        cell.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self
-                                                                                       action:@selector(longPress:)];
-        [cell addGestureRecognizer:cell.longPressGestureRecognizer];
-    }
-
-#warning REVIEW FIRST CELL MANAGEMENT
-//    // The first cell is special since it is responsible for task creation
-//    // Move it more to the border
-//    if([indexPath section] == 0 && [indexPath row] == 0)
-//    {
-//        [cell.textLabel setText:@"+"];
-//        
-//        // Thus we disable the scroll view touches when working with the first cell
-//        [cell.panGestureRecognizer setDelegate:nil];
-//    }
-//    else
-//    {
-//        //    [cell.panGestureRecognizer requireGestureRecognizerToFail:self.tableView.panGestureRecognizer];
-//        [cell.panGestureRecognizer setDelegate:self];
-//    }
-    
-#warning REVIEW
-//    [cell.panGestureRecognizer setDelegate:self];
-    [cell.panGestureRecognizer setDelegate:nil];
-    cell.panGestureRecognizer = nil;
-
-    
     // Set cell delegate
     [cell setDelegate:self];
     
@@ -208,14 +166,6 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
     // Configure the cell...
     [itemCell.textfield setText:item.title];
     [itemCell setResolved:item.resolved];
-}
-
-#warning TESt
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -354,31 +304,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
 }
 
-- (void)longPress:(UILongPressGestureRecognizer*)recognizer
-{
-    if([recognizer.view isFirstResponder])
-    {
-        // Cell is already first responder, return
-        return;
-    }
-    
-    ItemCell *itemCell = (ItemCell*)recognizer.view;
-    // Allow user interaction and focus as first responder
-    [itemCell.textfield becomeFirstResponder];
-    
-    // Toggle editing mode
-//    [recognizer.view removeGestureRecognizer:recognizer];
-    [self.tableView setEditing:YES animated:YES];
-#warning VERY TEMP
-//    for(UIView *view in self.tableView.subviews)
-//    {
-//        for(UIGestureRecognizer *rec in view.gestureRecognizers)
-//        {
-//            [view removeGestureRecognizer:rec];
-//        }
-//    }
-}
-
 #pragma mark - NSFetchedResultsController - Delegate Methods
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -471,6 +396,12 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [item setTitle:title];
 }
 
+- (void)itemCellDetectedLongPressGesture:(ItemCell *)cell
+{
+    // Enable editing mode
+    [self.tableView setEditing:YES animated:YES];
+}
+
 #pragma mark - Private Methods
 
 - (void)addItem
@@ -494,29 +425,15 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [self.tableView setEditing:NO animated:YES];
 }
 
-- (void)itemCell:(ItemCell *)cell textfieldWillBecomeFirstResponder:(InteractionTextField*)textField
-{
-    DLog(@"%s", __PRETTY_FUNCTION__);
-    self.oneFingerOneTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(globallyResignFirstResponder:)];
-    [self.tableView addGestureRecognizer:self.oneFingerOneTap];
-}
-
-- (void)itemCell:(ItemCell *)cell textfieldWillResignFirstResponder:(InteractionTextField*)textField
-{
-    
-#warning Gets called several times
-#warning Maybe use notifications
-    DLog(@"%s", __PRETTY_FUNCTION__);
-    
-    // Remove all gesture recognizers from table view
-    for(UIGestureRecognizer *recognizer in self.tableView.gestureRecognizers)
-    {
-        if([recognizer isKindOfClass:[UITapGestureRecognizer class]])
-        {
-            [self.tableView removeGestureRecognizer:recognizer];
-        }
-    }
-    self.oneFingerOneTap = nil;
-}
+#warning NEED THIS SOMEWHERE
+//// Remove all gesture recognizers from table view
+//for(UIGestureRecognizer *recognizer in self.tableView.gestureRecognizers)
+//{
+//    if([recognizer isKindOfClass:[UITapGestureRecognizer class]])
+//    {
+//        [self.tableView removeGestureRecognizer:recognizer];
+//    }
+//}
+//self.oneFingerOneTap = nil;
 
 @end

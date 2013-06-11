@@ -8,28 +8,30 @@
 
 #import <UIKit/UIKit.h>
 #import "CheckmarkControl.h"
-#import "InteractionTextField.h"
 
 @class ItemCell;
 @protocol ItemCellDelegate <NSObject>
 
 - (void)itemCell:(ItemCell*)cell changedCheckmarkStateTo:(BOOL)selected;
 - (void)itemCell:(ItemCell*)cell changedItemTitleTo:(NSString*)title;
-- (void)itemCell:(ItemCell *)cell textfieldWillBecomeFirstResponder:(InteractionTextField*)textField;
-- (void)itemCell:(ItemCell *)cell textfieldWillResignFirstResponder:(InteractionTextField*)textField;
+- (void)itemCellDetectedLongPressGesture:(ItemCell*)cell;
 
 @end
 
 @interface ItemCell : UITableViewCell
 
+// Reference to delegate
 @property (nonatomic, weak) id <ItemCellDelegate> delegate;
 
-@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
-
+// Variable to determine a Item/Task as resolved or unresolved
 @property (nonatomic, assign) BOOL resolved;
 
+// Enable or disable gesture recognizeres
+@property (nonatomic, assign) BOOL gestureRecognizersEnabled;
+@property (nonatomic, assign) BOOL gestureRecognizersAllowedSimultaneously;
+
+// Subview for checkmark and textfield
 @property (nonatomic, strong, readonly) CheckmarkControl *checkmark;
-@property (nonatomic, strong, readonly) InteractionTextField *textfield;
+@property (nonatomic, strong, readonly) UITextField *textfield;
 
 @end

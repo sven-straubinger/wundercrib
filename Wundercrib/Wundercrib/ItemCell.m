@@ -8,7 +8,12 @@
 
 #import "ItemCell.h"
 
-@interface ItemCell() <InteractionTextFieldDelegate>
+@interface ItemCell() <UITextFieldDelegate, UIGestureRecognizerDelegate>
+
+// Gesture recognizers for pan and press gestures on the cell
+// Their results are forwarded to the delegate
+@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 - (void)changeCheckmarkState;
 
@@ -35,12 +40,28 @@
         [self.contentView addSubview:self.checkmark];
         
         // Add textfield
-        _textfield = [[InteractionTextField alloc]initWithFrame:CGRectZero];
+        _textfield = [[UITextField alloc]initWithFrame:CGRectZero];
         [self.textfield setDelegate:self];
+        self.textfield.borderStyle = UITextBorderStyleNone;
+        self.textfield.textAlignment = NSTextAlignmentLeft;
+        [self.textfield setFont:[UIFont boldSystemFontOfSize:18.0]];
+        self.textfield.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         [self.contentView addSubview:self.textfield];
-                
+        
+        // Add to cell's UIPanGestureRecognizer
+        self.panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self
+                                                                           action:@selector(pan:)];
+        [self.panGestureRecognizer setDelegate:self];
+        [self addGestureRecognizer:self.panGestureRecognizer];
+
+        self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self
+                                                                                       action:@selector(longPressGesture:)];
+        [self addGestureRecognizer:self.longPressGestureRecognizer];
+                        
         // Set default value
         self.resolved = NO;
+        self.gestureRecognizersEnabled = YES;
+        self.gestureRecognizersAllowedSimultaneously = YES;
     }
     return self;
 }
@@ -128,7 +149,7 @@
     CGContextRestoreGState(context);
 }
 
-#pragma mark - Resolved and 
+#pragma mark - Resolved and Checkmark
 
 // The 'resolved' property and the selected state of the checkmark are always corresponding
 
@@ -156,6 +177,18 @@
     }
 }
 
+- (void)setGestureRecognizersEnabled:(BOOL)gestureRecognizersEnabled
+{
+    // Set variable
+    _gestureRecognizersEnabled = gestureRecognizersEnabled;
+    
+    // Set gesture recognizers
+    [self.panGestureRecognizer setEnabled:gestureRecognizersEnabled];
+    [self.longPressGestureRecognizer setEnabled:gestureRecognizersEnabled];
+}
+
+#pragma mark - Private Methods
+
 #pragma mark - UITextField Delegate Methods
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -174,20 +207,21 @@
     return YES;
 }
 
-- (void)interactionTextFieldWillBecomeFirstResponder:(InteractionTextField *)textField
-{   
-    // Notify delegate
-    if([self.delegate respondsToSelector:@selector(itemCell:textfieldWillBecomeFirstResponder:)]){
-        [self.delegate itemCell:self textfieldWillBecomeFirstResponder:textField];
+#pragma mark - Pan Gesture Recognizer Delegate Methods
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return self.gestureRecognizersAllowedSimultaneously;
+}
+
+- (void)longPressGesture:(UILongPressGestureRecognizer*)recognizer
+{
+    // Notify delegate about long press gesture
+    if([self.delegate respondsToSelector:@selector(itemCellDetectedLongPressGesture:)]){
+        [self.delegate itemCellDetectedLongPressGesture:self];
     }
 }
 
-- (void)interactionTextFieldWillResignFirstResponder:(InteractionTextField *)textField
-{
-    // Notify delegate
-    if([self.delegate respondsToSelector:@selector(itemCell:textfieldWillResignFirstResponder:)]){
-        [self.delegate itemCell:self textfieldWillResignFirstResponder:textField];
-    }
-}
 
 @end

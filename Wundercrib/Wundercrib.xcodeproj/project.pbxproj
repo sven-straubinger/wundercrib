@@ -15,7 +15,6 @@
 		26383ABE17675EED0071BB6C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 26383ABB17675EED0071BB6C /* Default.png */; };
 		26383ABF17675EED0071BB6C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26383ABC17675EED0071BB6C /* Default@2x.png */; };
 		26383AC2176768570071BB6C /* UIView+FindAndResignFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 26383AC1176768570071BB6C /* UIView+FindAndResignFirstResponder.m */; };
-		26383AC5176773FE0071BB6C /* InteractionTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 26383AC4176773FE0071BB6C /* InteractionTextField.m */; };
 		2641995A176364D000BE386A /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 26419952176364D000BE386A /* Icon-72.png */; };
 		2641995B176364D000BE386A /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26419953176364D000BE386A /* Icon-72@2x.png */; };
 		2641995C176364D000BE386A /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 26419954176364D000BE386A /* Icon-Small-50.png */; };
@@ -67,8 +66,6 @@
 		26383ABC17675EED0071BB6C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		26383AC0176768570071BB6C /* UIView+FindAndResignFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FindAndResignFirstResponder.h"; sourceTree = "<group>"; };
 		26383AC1176768570071BB6C /* UIView+FindAndResignFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FindAndResignFirstResponder.m"; sourceTree = "<group>"; };
-		26383AC3176773FE0071BB6C /* InteractionTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionTextField.h; sourceTree = "<group>"; };
-		26383AC4176773FE0071BB6C /* InteractionTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionTextField.m; sourceTree = "<group>"; };
 		26419952176364D000BE386A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		26419953176364D000BE386A /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		26419954176364D000BE386A /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -195,8 +192,6 @@
 				26849F7A176275F8005F9E31 /* ItemCell.m */,
 				26F78D331764C972000640AD /* CheckmarkControl.h */,
 				26F78D341764C972000640AD /* CheckmarkControl.m */,
-				26383AC3176773FE0071BB6C /* InteractionTextField.h */,
-				26383AC4176773FE0071BB6C /* InteractionTextField.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -483,7 +478,6 @@
 				26D255F9176736060086C142 /* UIColor+CorporateDesign.m in Sources */,
 				26383AB5176752980071BB6C /* Item.m in Sources */,
 				26383AC2176768570071BB6C /* UIView+FindAndResignFirstResponder.m in Sources */,
-				26383AC5176773FE0071BB6C /* InteractionTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
