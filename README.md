@@ -16,11 +16,11 @@ Features:
 Notes:
 The Xcode project contains three main parts (iPhone/iPad/Shared), covering device specific code (e.g. Views) or shared code and objects (e.g. APIController or common View Controller functionality). 
 
-- CoreDataController (Singleton)
+- CoreDataController (Singleton):
 The Core Data Controller is seperated from the AppDelegate to extend the functionality and to beware the AppDelegate from bloating.
 
-- NSFetchedResultsController
+- NSFetchedResultsController:
 The NSFetchedResultsController keeps track of every data change. As soon as the context saves persitent data, the changes are forwarded to the table view.
 
-- APIController
+- APIController (Singleton):
 The APIController is responsible for the communication with the server and to synchronize the data stored with the Core Data Framework. It is not fully implemented. One challenge is to 
