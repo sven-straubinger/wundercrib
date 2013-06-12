@@ -43,7 +43,7 @@
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+//            abort();
         }
     }
 }
@@ -145,14 +145,8 @@
     newItem.resolved = NO;
     newItem.displayOrder =  [self getNextDisplayOrder];
     
-    // Save current context
-    NSError *error = nil;
-    [moc save:&error];
-    
-    if(error)
-    {
-        DLog(@"An error occured during the context saving process");
-    }
+    // Save
+    [self saveContext];
 }
 
 - (void)deleteItem:(Item*)item
@@ -163,17 +157,9 @@
     // Delete the item from Core Data
     [moc deleteObject:item];
     
-    // Save the changes
-    NSError *contextError = nil;
-    [moc save:&contextError];
-    
-    if(contextError)
-    {
-        DLog(@"An error occured during the saving process");
-    }
+    // Save
+    [self saveContext];
 }
-
-#warning Wann wird immer gespeichert????
 
 - (int)getNextDisplayOrder
 {

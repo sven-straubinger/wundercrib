@@ -114,6 +114,17 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
     // Configure the cell...
     [itemCell.textfield setText:item.title];
     [itemCell setResolved:item.resolved];
+    
+    if(self.tableView.isEditing)
+    {
+        [itemCell setGestureRecognizersEnabled:NO];
+        [itemCell.checkmark setUserInteractionEnabled:NO];
+    }
+    else
+    {
+        [itemCell setGestureRecognizersEnabled:YES];
+        [itemCell.checkmark setUserInteractionEnabled:YES];
+    }
 }
 
 #pragma mark - Table view delegate
@@ -268,30 +279,19 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
     // Select or deselect edit button
     [self.editButton setSelected:!self.editButton.selected];
     
-    // Disable or enable gesture recognizer since they are not working along with cell re-ordering
-    for(UIView *subview in self.tableView.subviews)
+    // Disable add button
+    if(self.tableView.editing)
     {
-        if([subview isKindOfClass:[ItemCell class]])
-        {
-            ItemCell *cell = (ItemCell*)subview;
-            if(self.tableView.editing)
-            {
-                [cell setGestureRecognizersEnabled:NO];
-                [cell.checkmark setUserInteractionEnabled:NO];
-                [self.addButton setUserInteractionEnabled:NO];
-                [self.addButton setAlpha:0.35];
-            }
-            else
-            {
-                [cell setGestureRecognizersEnabled:YES];
-                [cell.checkmark setUserInteractionEnabled:YES];
-                [self.addButton setUserInteractionEnabled:YES];
-                [self.addButton setAlpha:1.0];
-            }
-        }
+        [self.addButton setUserInteractionEnabled:NO];
+        [self.addButton setAlpha:0.35];
+    }
+    else
+    {
+        [self.addButton setUserInteractionEnabled:YES];
+        [self.addButton setAlpha:1.0];
     }
     
-    // Refresh table view
+    // Refresh table view to display changes
     [self.tableView reloadData];
 }
 

@@ -19,10 +19,7 @@
     // Set appearance
     [[UINavigationBar appearance]setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance]setBackgroundImage:background forBarMetrics:UIBarMetricsLandscapePhone];
-    
-    // Search for updates, synchronize with Core Data
-    [[APIController sharedInstance]synchronize];
-    
+        
     // Device specific implementations are set in AppDelegate_iPhone and AppDelegate_iPad
     return YES;
 }
@@ -46,11 +43,16 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    DLog(@"%s",__PRETTY_FUNCTION__);
+
+    // Search for updates, synchronize with Core Data
+    [[APIController sharedInstance]synchronize];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    DLog(@"%s",__PRETTY_FUNCTION__);
+    
     // Saves changes in the application's managed object context before the application terminates.
     [[CoreDataController sharedInstance] saveContext];
 }

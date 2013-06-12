@@ -44,6 +44,7 @@
                                                                        managedObjectContext:[cdc managedObjectContext]
                                                                          sectionNameKeyPath:@"resolved"
                                                                                   cacheName:nil];
+    // Set delegate
     [self.fetchedResultsController setDelegate:self];
     
     // Start fetching
@@ -95,22 +96,27 @@
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                    atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
             [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                               arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
             [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                               arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
@@ -134,12 +140,13 @@
     }
 }
 
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
 }
+
+#pragma mark - Cell reordering
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -151,37 +158,53 @@
     return NO;
 }
 
-- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return NO;
+    return YES;
 }
 
-// Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-    DLog(@"%s",__PRETTY_FUNCTION__);
+{        
+    // Bypass the delegate methods temporarily
+    self.fetchedResultsController.delegate = nil;
     
-    NSMutableArray *things = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+    // Get section with changes
+    id <NSFetchedResultsSectionInfo> theSection = [[self.fetchedResultsController sections] objectAtIndex:fromIndexPath.section];
+    NSMutableArray *sectionItems = [[theSection objects]mutableCopy];
     
     // Grab the item we're moving.
-    NSManagedObject *thing = [self.fetchedResultsController objectAtIndexPath:fromIndexPath];
+    NSManagedObject *item = (Item*)[self.fetchedResultsController objectAtIndexPath:fromIndexPath];
     
     // Remove the object we're moving from the array.
-    [things removeObject:thing];
+    [sectionItems removeObject:item];
     // Now re-insert it at the destination.
-    [things insertObject:thing atIndex:[toIndexPath row]];
+    [sectionItems insertObject:item atIndex:[toIndexPath row]];
     
-    // All of the objects are now in their correct order. Update each
-    // object's displayOrder field by iterating through the array.
-    //    int i = 0;
-    //    for (NSManagedObject *mo in things)
-    //    {
-    //        [mo setValue:[NSNumber numberWithInt:i++] forKey:@"displayOrder"];
-    //    }
+     // All of the objects are now in their correct order. Update each
+     // object's displayOrder field by iterating through the array.
+    for(int i=0;i<[sectionItems count];i++)
+    {
+        // Define new display order number
+        int displayOrder = sectionItems.count - 1 - i;
+
+        // Get item and assign new value
+        Item *item = [sectionItems objectAtIndex:i];
+        item.displayOrder = displayOrder;
+    }
+        
+    // Save changes
+    [[CoreDataController sharedInstance]saveContext];
     
-    things = nil;
+    // Allow the delegate methods to work again
+    self.fetchedResultsController.delegate = self;
     
-    [[[CoreDataController sharedInstance]managedObjectContext] save:nil];
+    // Re-fetch
+    NSError *error;
+	if (![[self fetchedResultsController] performFetch:&error])
+    {
+		// Update to handle the error appropriately.
+		DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	}
 }
 
 - (NSIndexPath*)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
@@ -197,11 +220,6 @@
         // Set the new index  path
         return proposedDestinationIndexPath;
     }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
 }
 
 @end
