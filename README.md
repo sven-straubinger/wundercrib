@@ -24,3 +24,5 @@ The NSFetchedResultsController keeps track of every data change. As soon as the 
 
 - APIController (Singleton):
 The APIController is responsible for the communication with the server and to synchronize the data stored with the Core Data Framework. It is not fully implemented. One challenge is to handle data arriving from multiple network requests. The APIController can execute this requests and handle the responses in several NSManagedObject Contextes, which can be merged. By using the NSFetchedResultsController, every change in the dataset will be forwarded to the table view.
+
+For serialization, the class "Item" should implement the protocol NSCoding (encodeWithCoder and initWithCoder). This way we can serialize all items and send to the server. (for pseudocode see APIController)
