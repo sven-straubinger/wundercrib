@@ -8,31 +8,33 @@
 
 #import "RootViewController_iPad.h"
 
-@interface RootViewController_iPad ()
+@interface RootViewController_iPad()
+
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
 
 @end
 
 @implementation RootViewController_iPad
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)viewWillAppear:(BOOL)animated
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    [super viewWillAppear:animated];
+    
+    // Hide image view
+    [self.imageView setAlpha:0.0];
 }
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    
+    // Fade in image view
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [self.imageView setAlpha:1.0];
+                     } completion:nil];
 }
 
 @end

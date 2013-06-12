@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "RootViewController.h"
 
-@interface RootViewController_iPad : RootViewController
+// Normally you would inherit from "RootViewController", but since this is an dummy application, we don't
+//@interface RootViewController_iPad : RootViewController
+
+@interface RootViewController_iPad : UIViewController
 
 @end
