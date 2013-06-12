@@ -185,8 +185,7 @@
         int displayOrder = 0;
         for(int i=0;i<[array count];i++)
         {
-#warning REFACTOR OLD VALUES
-            // Refactor 'old' displayOrders
+            // Get current item
             Item *item = (Item*)[array objectAtIndex:i];
             
             // Get the biggest value
