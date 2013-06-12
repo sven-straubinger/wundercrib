@@ -207,9 +207,12 @@
 	}
 }
 
-- (NSIndexPath*)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+- (NSIndexPath*)tableView:(UITableView *)tableView
+targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+      toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
     // This method is used to set the allowed index paths
+    // You can only rearrange cells in the same section
     if(sourceIndexPath.section != proposedDestinationIndexPath.section)
     {
         // Back to the origin index path

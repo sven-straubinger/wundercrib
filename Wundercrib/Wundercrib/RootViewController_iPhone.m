@@ -43,7 +43,7 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
     [self.tableView registerClass:[ItemCell class] forCellReuseIdentifier:kCellIdentifier];
     [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:kHeaderIdentifier];
         
-    // Add 'plus' button
+    // Add 'plus' and 'edit' button
     // INFO: We don't use a navigation bar button item but a subview to have more control over the style.
     // Since this is an 'Single page app' this won't cause problems, because no view controller is pushed on top.
     CGSize navigationBarSize = self.navigationController.navigationBar.frame.size;
@@ -269,7 +269,7 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
     }
 }
 
-#pragma mark - Private Methods
+#pragma mark - Edit & Add
 
 - (void)edit
 {
@@ -308,6 +308,27 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
     [itemCell.textfield becomeFirstResponder];
 }
 
+// Realign the order handle
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    for(UIView* view in cell.subviews)
+    {
+        if([[[view class] description] isEqualToString:@"UITableViewCellReorderControl"])
+        {
+            for (UIView * subview in view.subviews)
+            {
+                if ([subview isKindOfClass: [UIImageView class]])
+                {
+                    // Set new frame
+                    CGRect frame = subview.frame;
+                    frame.origin.x -= 15.0;
+                    subview.frame = frame;
+                }
+            }
+        }
+    }
+}
+
 #pragma mark - Notifications
 
 - (void)keyboardDidShow
@@ -338,27 +359,6 @@ NSString *const kHeaderIdentifier = @"kHeaderIdentifier";
 {
     DLog(@"%s", __PRETTY_FUNCTION__);
     [self.tableView findAndResignFirstResponder];
-}
-
-// Realign the order handle
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    for(UIView* view in cell.subviews)
-    {
-        if([[[view class] description] isEqualToString:@"UITableViewCellReorderControl"])
-        {
-            for (UIView * subview in view.subviews)
-            {
-                if ([subview isKindOfClass: [UIImageView class]])
-                {
-                    // Set new frame
-                    CGRect frame = subview.frame;
-                    frame.origin.x -= 15.0;
-                    subview.frame = frame;
-                }
-            }
-        }
-    }
 }
 
 @end

@@ -11,6 +11,7 @@
 @interface CoreDataController ()
 
 - (int)getNextDisplayOrder;
+- (NSURL *)applicationDocumentsDirectory;
 
 @end
 
@@ -121,13 +122,7 @@
     return _persistentStoreCoordinator;
 }
 
-#pragma mark - Application's Documents directory
-
-// Returns the URL to the application's Documents directory.
-- (NSURL *)applicationDocumentsDirectory
-{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
+#pragma mark - Public Methods
 
 - (void)createItem
 {
@@ -160,6 +155,8 @@
     // Save
     [self saveContext];
 }
+
+#pragma mark - Private Methods
 
 - (int)getNextDisplayOrder
 {
@@ -197,6 +194,12 @@
         
         return displayOrder;
     }
+}
+
+// Returns the URL to the application's Documents directory.
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 @end

@@ -47,17 +47,18 @@
         self.textfield.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         [self.contentView addSubview:self.textfield];
         
-        // Add to cell's UIPanGestureRecognizer
+        // Add UIPanGestureRecognizer to cell
         self.panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self
                                                                            action:@selector(panGesture:)];
         [self.panGestureRecognizer setDelegate:self];
         [self addGestureRecognizer:self.panGestureRecognizer];
                         
-        // Set default value
+        // Set default values
         self.resolved = NO;
         self.gestureRecognizersEnabled = YES;
         self.gestureRecognizersAllowedSimultaneously = YES;
     }
+    
     return self;
 }
 
@@ -91,7 +92,7 @@
     [self.textfield setFrame:textfieldFrame];
 }
 
-#pragma mark - Resolved and Checkmark
+#pragma mark - Checkmark and checkmark Handling
 
 // The 'resolved' property and the selected state of the checkmark are always corresponding
 
@@ -122,17 +123,6 @@
     }
 }
 
-- (void)setGestureRecognizersEnabled:(BOOL)gestureRecognizersEnabled
-{
-    // Set variable
-    _gestureRecognizersEnabled = gestureRecognizersEnabled;
-    
-    // Set gesture recognizers
-    [self.panGestureRecognizer setEnabled:gestureRecognizersEnabled];
-}
-
-#pragma mark - Private Methods
-
 #pragma mark - UITextField Delegate Methods
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -152,6 +142,15 @@
 }
 
 #pragma mark - Pan Gesture Recognizer Delegate Methods
+
+- (void)setGestureRecognizersEnabled:(BOOL)gestureRecognizersEnabled
+{
+    // Set variable
+    _gestureRecognizersEnabled = gestureRecognizersEnabled;
+    
+    // Set gesture recognizers
+    [self.panGestureRecognizer setEnabled:gestureRecognizersEnabled];
+}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
