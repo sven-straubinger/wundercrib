@@ -14,5 +14,5 @@ Features:
 - ARC for eased Memory Management
 
 Notes:
-The Xcode project contains three main parts (iPhone/iPad/Shared), containing device specific (e.g. Views) or shared (e.g. APIController or common View Controller functionality) code and objects. 
+The Xcode project contains three main parts (iPhone/iPad/Shared), containing device specific code (e.g. Views) or shared code and objects (e.g. APIController or common View Controller functionality). 
 The Core Data Controller is seperated from the AppDelegate to extend the functionality and to beware the AppDelegate from bloating.
