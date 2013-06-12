@@ -1,7 +1,0 @@
-cd app-koffer24/
-git status
-git add .
-git commit -m "CartViewController added"
-git push origin master
-
-http://help.github.com/mac-set-up-git/
