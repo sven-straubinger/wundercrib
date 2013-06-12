@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RootViewController.h"
 
-@interface RootViewController_iPad : UIViewController
+@interface RootViewController_iPad : RootViewController
 
 @end

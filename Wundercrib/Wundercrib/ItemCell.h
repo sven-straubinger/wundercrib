@@ -14,7 +14,7 @@
 
 - (void)itemCell:(ItemCell*)cell changedCheckmarkStateTo:(BOOL)selected;
 - (void)itemCell:(ItemCell*)cell changedItemTitleTo:(NSString*)title;
-- (void)itemCellDetectedLongPressGesture:(ItemCell*)cell;
+- (void)itemCell:(ItemCell*)cell detectedPanGestureWithRecognizer:(UIPanGestureRecognizer*)recognizer;
 
 @end
 

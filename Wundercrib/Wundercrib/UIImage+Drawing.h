@@ -11,5 +11,6 @@
 @interface UIImage (Drawing)
 
 + (UIImage*)imageForNavigationBarBackground;
++ (UIImage*)selectedBackground;
 
 @end

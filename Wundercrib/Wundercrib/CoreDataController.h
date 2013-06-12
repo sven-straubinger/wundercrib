@@ -20,8 +20,6 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
-#warning TEMP
-- (void)createDummyData;
 - (void)createItem;
 - (void)deleteItem:(Item*)item;
 

@@ -20,6 +20,9 @@
     [[UINavigationBar appearance]setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance]setBackgroundImage:background forBarMetrics:UIBarMetricsLandscapePhone];
     
+    // Search for updates, synchronize with Core Data
+    [[APIController sharedInstance]synchronize];
+    
     // Device specific implementations are set in AppDelegate_iPhone and AppDelegate_iPad
     return YES;
 }

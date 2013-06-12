@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "RootViewController.h"
 
-@interface RootViewController_iPhone : UITableViewController <UIGestureRecognizerDelegate>
+@interface RootViewController_iPhone : RootViewController
 
 @end

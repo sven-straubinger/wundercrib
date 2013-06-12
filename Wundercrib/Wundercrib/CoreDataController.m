@@ -129,49 +129,6 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-#warning TEMP
-- (void)createDummyData
-{
-    // Get current context
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    
-    // Create new Item
-    Item *newItem1 = [NSEntityDescription
-                     insertNewObjectForEntityForName:@"Item"
-                     inManagedObjectContext:moc];
-    
-    Item *newItem2 = [NSEntityDescription
-                     insertNewObjectForEntityForName:@"Item"
-                     inManagedObjectContext:moc];
-    
-    Item *newItem3 = [NSEntityDescription
-                     insertNewObjectForEntityForName:@"Item"
-                     inManagedObjectContext:moc];
-    
-    
-    // Assign attributes
-    newItem1.title        = @"Milk";
-    newItem1.resolved     = NO;
-    newItem1.displayOrder = 1;
-    
-    newItem2.title        = @"Honey";
-    newItem2.resolved     = NO;
-    newItem2.displayOrder = 20;
-    
-    newItem3.title        = @"Water";
-    newItem3.resolved     = NO;
-    newItem3.displayOrder = 3;
-    
-    // Save current context
-    NSError *error = nil;
-    [moc save:&error];
-    
-    if(error)
-    {
-        DLog(@"An error occured during the context saving process");
-    }
-}
-
 - (void)createItem
 {
     // Get current context
