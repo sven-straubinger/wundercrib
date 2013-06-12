@@ -29,8 +29,8 @@
     [super viewDidAppear:animated];
     
     // Fade in image view
-    [UIView animateWithDuration:0.5
-                          delay:0.0
+    [UIView animateWithDuration:1.3
+                          delay:0.5
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          [self.imageView setAlpha:1.0];
