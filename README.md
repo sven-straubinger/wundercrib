@@ -1,8 +1,6 @@
 wundercrib
 ==========
 
-This iOS application is the response to the Wundertest by 6Wunderkinder. 
-
 Features:
 - Universal App
 - Plain and simple single-page app wrapped in an UINavigationController
